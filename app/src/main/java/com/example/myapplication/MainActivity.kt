@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 Surface(color = MaterialTheme.colorScheme.background) {
-                    RootNavHost()
+                    RootNavHost(applicationContext)
                 }
             }
         }
