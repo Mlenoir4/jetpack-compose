@@ -1,0 +1,50 @@
+{
+  "Projects":
+[
+  {
+    "owner_id": 1,
+    "users_acces": [2, 3, 4],
+    "title": "Project Alpha",
+    "descritpion": "Développement d'une application web",
+    "date_start": "2024-01-01",
+    "date_end": "2024-06-01",
+    "tasks": [101, 102, 103]
+  },
+  {
+    "owner_id": 2,
+    "users_acces": [1, 3, 5],
+    "title": "Project Beta",
+    "descritpion": "Mise à jour du système informatique",
+    "date_start": "2024-02-15",
+    "date_end": "2024-08-15",
+    "tasks": [201, 202, 203]
+  },
+  {
+    "owner_id": 3,
+    "users_acces": [1, 2, 4, 5],
+    "title": "Project Gamma",
+    "descritpion": "Création d'une campagne marketing",
+    "date_start": "2024-03-01",
+    "date_end": "2024-09-01",
+    "tasks": [301, 302, 303]
+  },
+  {
+    "owner_id": 4,
+    "users_acces": [1, 3, 5],
+    "title": "Project Delta",
+    "descritpion": "Développement d'une application mobile",
+    "date_start": "2024-04-01",
+    "date_end": "2024-10-01",
+    "tasks": [401, 402, 403]
+  },
+  {
+    "owner_id": 5,
+    "users_acces": [2, 3, 4],
+    "title": "Project Epsilon",
+    "descritpion": "Rebranding de l'entreprise",
+    "date_start": "2024-05-01",
+    "date_end": "2024-11-01",
+    "tasks": [501, 502, 503]
+  }
+]
+}

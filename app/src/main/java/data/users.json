@@ -1,0 +1,34 @@
+{
+  "Users": [
+  {
+    "id": 1,
+    "name": "Alice Martin",
+    "email": "alice.martin@example.com",
+    "password": "password123"
+  },
+  {
+    "id": 2,
+    "name": "Bob Dupont",
+    "email": "bob.dupont@example.com",
+    "password": "securepass456"
+  },
+  {
+    "id": 3,
+    "name": "Charlie Durand",
+    "email": "charlie.durand@example.com",
+    "password": "mypassword789"
+  },
+  {
+    "id": 4,
+    "name": "Diane Lefevre",
+    "email": "diane.lefevre@example.com",
+    "password": "diane1234"
+  },
+  {
+    "id": 5,
+    "name": "Eve Bernard",
+    "email": "eve.bernard@example.com",
+    "password": "evepass567"
+  }
+]
+}
