@@ -128,8 +128,6 @@ fun TodoItem(item: TodoItem, onCheckChange: (Boolean) -> Unit, onDelete: () -> U
     }
 }
 
-
-
 @Preview(showBackground = true)
 @Composable
 fun TodoListScreenPreview() {

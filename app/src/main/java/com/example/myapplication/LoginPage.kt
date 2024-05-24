@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import android.content.Context
+import android.util.Log
 
 
 @Composable
@@ -54,6 +55,9 @@ fun Login(navController: NavController, context: Context) {
 
         Button(
             onClick = {
+
+                Log.v("TAG", "validateUser: $username")
+                Log.v("TAG", "validateUser: $password")
                 if (users != null && validateUser(username, password, users)) {
                     navController.navigate("todoPage")
                 } else {

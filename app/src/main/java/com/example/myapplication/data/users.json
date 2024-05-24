@@ -3,30 +3,35 @@
   {
     "id": 1,
     "name": "Alice Martin",
+    "username": "alice",
     "email": "alice.martin@example.com",
     "password": "password123"
   },
   {
     "id": 2,
     "name": "Bob Dupont",
+    "username": "bob",
     "email": "bob.dupont@example.com",
     "password": "securepass456"
   },
   {
     "id": 3,
     "name": "Charlie Durand",
+    "username": "charlie",
     "email": "charlie.durand@example.com",
     "password": "mypassword789"
   },
   {
     "id": 4,
     "name": "Diane Lefevre",
+    "username": "diane",
     "email": "diane.lefevre@example.com",
     "password": "diane1234"
   },
   {
     "id": 5,
     "name": "Eve Bernard",
+    "username": "eve",
     "email": "eve.bernard@example.com",
     "password": "evepass567"
   }
