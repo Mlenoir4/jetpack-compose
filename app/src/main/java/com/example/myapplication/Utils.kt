@@ -2,20 +2,53 @@ package com.example.myapplication;
 
 import android.content.Context
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.io.IOException
+import java.io.InputStream
 
-fun loadUsersFromAsset(context: Context, fileName: String): List<User>? {
+fun loadJsonFromAsset(context: Context, fileName: String): String? {
+
     return try {
-        val jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
-        val userType = object : TypeToken<List<User>>() {}.type
-        Gson().fromJson(jsonString, userType)
-    } catch (ioException: IOException) {
-        ioException.printStackTrace()
+        val inputStream: InputStream = context.assets.open(fileName)
+        inputStream.bufferedReader().use { it.readText() }
+    } catch (e: Exception) {
+        e.printStackTrace()
         null
     }
 }
 
-fun validateUser(username: String, password: String, users: List<User>): Boolean {
-    return users.any { it.username == username && it.password == password }
+inline fun <reified T>parseJson(jsonString: String): T {
+    return Gson().fromJson(jsonString, T::class.java)
 }
+
+fun validateUser(context: Context, username: String, password: String): Any {
+    val jsonContent = loadJsonFromAsset(context, "users.json")
+    jsonContent?.let {
+        val usersList = parseJson<UsersList>(it)
+        for (user in usersList.users) {
+            if (user.username == username && user.password == password) {
+                return user
+            }
+        }
+    }
+    return false
+}
+
+fun loadUserDataById(context: Context, userId: Int): User? {
+
+    val jsonContent = loadJsonFromAsset(context, "users.json")
+    val usersList:UsersList? = jsonContent?.let { parseJson(it) }
+    if (usersList != null) {
+        return usersList.users.find { it.id == userId }
+    }
+    return null
+}
+
+fun loadProjectDataById(context: Context, projectId: Int): Project? {
+
+        val jsonContent = loadJsonFromAsset(context, "projects.json")
+        val projectsList = jsonContent?.let { parseJson<ProjectsList>(it) }
+        if (projectsList != null) {
+            return projectsList.projects.find { it.owner_id == projectId }
+        }
+        return null
+}
+

@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -21,16 +22,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.ui.theme.MyApplicationTheme
+import androidx.navigation.NavController
 
 data class TodoItem(val text: String, var isChecked: Boolean = false)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TodoListScreen() {
+fun TodoListScreen(navController: NavController, projectId: Int) {
     var todoItems by remember {
         mutableStateOf(listOf(
             TodoItem("Se lever"),
@@ -40,6 +41,8 @@ fun TodoListScreen() {
         ))
     }
     var text by remember { mutableStateOf("") }
+    val project = loadProjectDataById(LocalContext.current, projectId)
+    Log.v("TodoListScreen", "project: $project")
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -125,15 +128,5 @@ fun TodoItem(item: TodoItem, onCheckChange: (Boolean) -> Unit, onDelete: () -> U
         IconButton(onClick = onDelete) {
             Icon(Icons.Filled.Delete, contentDescription = "Delete")
         }
-    }
-}
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun TodoListScreenPreview() {
-    MyApplicationTheme {
-        TodoListScreen()
     }
 }
