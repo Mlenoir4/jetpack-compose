@@ -10,7 +10,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import android.content.Context
 import android.util.Log
@@ -21,9 +20,6 @@ fun Login(navController: NavController, context: Context) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf("") }
-
-    val users = loadUsersFromAsset(context, "users.json")
-
 
     Column(
         modifier = Modifier
@@ -55,11 +51,9 @@ fun Login(navController: NavController, context: Context) {
 
         Button(
             onClick = {
-
-                Log.v("TAG", "validateUser: $username")
-                Log.v("TAG", "validateUser: $password")
-                if (users != null && validateUser(username, password, users)) {
-                    navController.navigate("todoPage")
+                val user = validateUser(context, username, password)
+                if (user != false) {
+                    navController.navigate("todoPage/${(user as User).id}")
                 } else {
                     errorMessage = "Invalid username or password"
                 }
