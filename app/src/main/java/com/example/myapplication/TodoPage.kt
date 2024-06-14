@@ -31,7 +31,7 @@ data class TodoItem(val text: String, var isChecked: Boolean = false)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TodoListScreen(navController: NavController, userId: Int) {
+fun TodoListScreen(navController: NavController, projectId: Int) {
     var todoItems by remember {
         mutableStateOf(listOf(
             TodoItem("Se lever"),
@@ -41,8 +41,8 @@ fun TodoListScreen(navController: NavController, userId: Int) {
         ))
     }
     var text by remember { mutableStateOf("") }
-    val user = loadUserDataById(LocalContext.current, userId)
-    Log.v("TodoListScreen", "user: $user")
+    val project = loadProjectDataById(LocalContext.current, projectId)
+    Log.v("TodoListScreen", "project: $project")
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

@@ -15,14 +15,14 @@ fun loadJsonFromAsset(context: Context, fileName: String): String? {
     }
 }
 
-fun parseJson(jsonString: String): UsersList {
-    return Gson().fromJson(jsonString, UsersList::class.java)
+inline fun <reified T>parseJson(jsonString: String): T {
+    return Gson().fromJson(jsonString, T::class.java)
 }
 
 fun validateUser(context: Context, username: String, password: String): Any {
     val jsonContent = loadJsonFromAsset(context, "users.json")
     jsonContent?.let {
-        val usersList = parseJson(it)
+        val usersList = parseJson<UsersList>(it)
         for (user in usersList.users) {
             if (user.username == username && user.password == password) {
                 return user
@@ -35,9 +35,20 @@ fun validateUser(context: Context, username: String, password: String): Any {
 fun loadUserDataById(context: Context, userId: Int): User? {
 
     val jsonContent = loadJsonFromAsset(context, "users.json")
-    val usersList = jsonContent?.let { parseJson(it) }
+    val usersList:UsersList? = jsonContent?.let { parseJson(it) }
     if (usersList != null) {
         return usersList.users.find { it.id == userId }
     }
     return null
 }
+
+fun loadProjectDataById(context: Context, projectId: Int): Project? {
+
+        val jsonContent = loadJsonFromAsset(context, "projects.json")
+        val projectsList = jsonContent?.let { parseJson<ProjectsList>(it) }
+        if (projectsList != null) {
+            return projectsList.projects.find { it.owner_id == projectId }
+        }
+        return null
+}
+
