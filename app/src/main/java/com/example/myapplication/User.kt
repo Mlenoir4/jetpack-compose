@@ -5,7 +5,6 @@ import java.util.Date
 
 data class User(
     @SerializedName("id") val id: Int,
-    @SerializedName("name") val name: String,
     @SerializedName("username") val username: String,
     @SerializedName("email") val email: String,
     @SerializedName("password") val password: String
@@ -14,6 +13,7 @@ data class User(
 )
 
 data class Tasks(
+    @SerializedName("id") val id: Int,
     @SerializedName("project_id") val project_id: Int,
     @SerializedName("etat") val etat: String,
     @SerializedName("title") val title: String,
@@ -24,6 +24,7 @@ data class TasksList(
 )
 
 data class Project(
+    @SerializedName("id") val id: Int,
     @SerializedName("owner_id") val owner_id: Int,
     @SerializedName("users_acces") val users_acces: List<Int>,
     @SerializedName("title") val title: String,

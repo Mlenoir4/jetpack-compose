@@ -31,18 +31,14 @@ data class TodoItem(val text: String, var isChecked: Boolean = false)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TodoListScreen(navController: NavController, projectId: Int) {
-    var todoItems by remember {
-        mutableStateOf(listOf(
-            TodoItem("Se lever"),
-            TodoItem("Manger"),
-            TodoItem("Jouer"),
-            TodoItem("Dormir")
-        ))
-    }
+fun TodoListScreen(navController: NavController, userId: Int) {
     var text by remember { mutableStateOf("") }
-    val project = loadProjectDataById(LocalContext.current, projectId)
-    Log.v("TodoListScreen", "project: $project")
+    //recuperer l'id passer en param de la page
+    val projectsList = loadAllProjectDataByUserId(LocalContext.current, userId)
+    val taskList = mutableListOf<TasksList>()
+    for (project in projectsList!!.projects) {
+        taskList.add(loadTaskDataByProjectId(LocalContext.current, project.id)!!)
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -60,8 +56,8 @@ fun TodoListScreen(navController: NavController, projectId: Int) {
             )
             Button(
                 onClick = {
-                    if (text.isNotEmpty()) {
-                        todoItems = todoItems + TodoItem(text)
+                    if (text.isNotBlank()) {
+                        taskList.add(TasksList(listOf(Tasks(0, 0, "todo", text, ""))))
                         text = ""
                     }
                 },
@@ -77,16 +73,13 @@ fun TodoListScreen(navController: NavController, projectId: Int) {
             }
 
             LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(items = todoItems, key = { it.text }) { item ->
+                items(taskList) { task ->
                     TodoItem(
-                        item = item,
+                        item = task.tasks[0],
                         onCheckChange = { isChecked ->
-                            todoItems = todoItems.map { todo ->
-                                if (todo.text == item.text) todo.copy(isChecked = isChecked) else todo
-                            }
                         },
                         onDelete = {
-                            todoItems = todoItems.filter { it.text != item.text }
+                            taskList.remove(task)
                         }
                     )
                 }
@@ -97,8 +90,8 @@ fun TodoListScreen(navController: NavController, projectId: Int) {
 
 
 @Composable
-fun TodoItem(item: TodoItem, onCheckChange: (Boolean) -> Unit, onDelete: () -> Unit) {
-    val backgroundColor = if (item.isChecked) Color(0xFFE0E0E0) else Color.White
+fun TodoItem(item: Tasks, onCheckChange: (Boolean) -> Unit, onDelete: () -> Unit) {
+    val backgroundColor = Color.White
     val borderColor = Color(0xFF6200EE)
     val borderWidth = 1.dp
     val borderRadius = 16.dp
@@ -114,17 +107,30 @@ fun TodoItem(item: TodoItem, onCheckChange: (Boolean) -> Unit, onDelete: () -> U
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Checkbox(
-            checked = item.isChecked,
-            onCheckedChange = onCheckChange
-        )
-        Text(
-            text = item.text,
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 8.dp),
-            textDecoration = if (item.isChecked) TextDecoration.LineThrough else null
-        )
+        Column {
+            Text(
+                text = item.id.toString(),
+                modifier = Modifier.padding(start = 8.dp),
+                textDecoration = TextDecoration.Underline
+            )
+            Text(
+                text = item.etat,
+                modifier = Modifier.padding(start = 8.dp),
+                textDecoration = TextDecoration.Underline
+            )
+            Text(
+                //mettre en gras
+                text = item.title,
+                modifier = Modifier.padding(start = 16.dp),
+                textDecoration = TextDecoration.Underline,
+                style = MaterialTheme.typography.titleLarge
+            )
+            Text(
+                text = item.desciption,
+                modifier = Modifier.padding(start = 8.dp),
+                textDecoration = TextDecoration.Underline
+            )
+        }
         IconButton(onClick = onDelete) {
             Icon(Icons.Filled.Delete, contentDescription = "Delete")
         }

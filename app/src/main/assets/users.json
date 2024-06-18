@@ -2,31 +2,31 @@
   "Users": [
   {
     "id": 1,
-    "name": "Alice Martin",
+    "username": "Alice",
     "email": "alice.martin@example.com",
     "password": "password123"
   },
   {
     "id": 2,
-    "name": "Bob Dupont",
+    "username": "Bob",
     "email": "bob.dupont@example.com",
     "password": "securepass456"
   },
   {
     "id": 3,
-    "name": "Charlie Durand",
+    "username": "Charlie",
     "email": "charlie.durand@example.com",
     "password": "mypassword789"
   },
   {
     "id": 4,
-    "name": "Diane Lefevre",
+    "username": "Diane",
     "email": "diane.lefevre@example.com",
     "password": "diane1234"
   },
   {
     "id": 5,
-    "name": "Eve Bernard",
+    "username": "Eve",
     "email": "eve.bernard@example.com",
     "password": "evepass567"
   }

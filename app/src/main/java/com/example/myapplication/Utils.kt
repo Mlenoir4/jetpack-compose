@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
 import java.io.InputStream
 
@@ -24,6 +25,7 @@ fun validateUser(context: Context, username: String, password: String): Any {
     jsonContent?.let {
         val usersList = parseJson<UsersList>(it)
         for (user in usersList.users) {
+            Log.v("TAG", "user: $user" )
             if (user.username == username && user.password == password) {
                 return user
             }
@@ -42,7 +44,7 @@ fun loadUserDataById(context: Context, userId: Int): User? {
     return null
 }
 
-fun loadProjectDataById(context: Context, projectId: Int): Project? {
+fun loadProjectDataByUserId(context: Context, projectId: Int): Project? {
 
         val jsonContent = loadJsonFromAsset(context, "projects.json")
         val projectsList = jsonContent?.let { parseJson<ProjectsList>(it) }
@@ -52,3 +54,19 @@ fun loadProjectDataById(context: Context, projectId: Int): Project? {
         return null
 }
 
+fun loadAllProjectDataByUserId(context: Context, userId: Int): ProjectsList? {
+    val jsonContent = loadJsonFromAsset(context, "projects.json")
+    val projectsList = jsonContent?.let { parseJson<ProjectsList>(it) }
+    if (projectsList != null) {
+        return ProjectsList(projectsList.projects.filter { it.owner_id == userId })
+    }
+    return null
+}
+fun loadTaskDataByProjectId(context: Context, projectId: Int): TasksList? {
+    val jsonContent = loadJsonFromAsset(context, "tasks.json")
+    val tasksList = jsonContent?.let { parseJson<TasksList>(it) }
+    if (tasksList != null) {
+        return TasksList(tasksList.tasks.filter { it.project_id == projectId })
+    }
+    return null
+}
