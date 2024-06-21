@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import android.content.Context
-import android.util.Log
 
 
 @Composable
@@ -53,7 +52,7 @@ fun Login(navController: NavController, context: Context) {
             onClick = {
                 val user = validateUser(context, username, password)
                 if (user != false) {
-                    navController.navigate("todoPage/${(user as User).id}")
+                    navController.navigate("projects/${(user as User).id}")
                 } else {
                     errorMessage = "Invalid username or password"
                 }

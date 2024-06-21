@@ -2,8 +2,12 @@ package com.example.myapplication;
 
 import android.content.Context
 import android.util.Log
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.io.InputStream
+import java.io.File
+
 
 fun loadJsonFromAsset(context: Context, fileName: String): String? {
 
@@ -46,12 +50,12 @@ fun loadUserDataById(context: Context, userId: Int): User? {
 
 fun loadProjectDataByUserId(context: Context, projectId: Int): Project? {
 
-        val jsonContent = loadJsonFromAsset(context, "projects.json")
-        val projectsList = jsonContent?.let { parseJson<ProjectsList>(it) }
-        if (projectsList != null) {
-            return projectsList.projects.find { it.owner_id == projectId }
-        }
-        return null
+    val jsonContent = loadJsonFromAsset(context, "projects.json")
+    val projectsList = jsonContent?.let { parseJson<ProjectsList>(it) }
+    if (projectsList != null) {
+        return projectsList.projects.find { it.owner_id == projectId }
+    }
+    return null
 }
 
 fun loadAllProjectDataByUserId(context: Context, userId: Int): ProjectsList? {
@@ -62,6 +66,15 @@ fun loadAllProjectDataByUserId(context: Context, userId: Int): ProjectsList? {
     }
     return null
 }
+
+fun loadAllProjectDataByProjectId(context: Context, projectId: Int): ProjectsList? {
+    val jsonContent = loadJsonFromAsset(context, "projects.json")
+    val projectsList = jsonContent?.let { parseJson<ProjectsList>(it) }
+    if (projectsList != null) {
+        return ProjectsList(projectsList.projects.filter { it.id == projectId })
+    }
+    return null
+}
 fun loadTaskDataByProjectId(context: Context, projectId: Int): TasksList? {
     val jsonContent = loadJsonFromAsset(context, "tasks.json")
     val tasksList = jsonContent?.let { parseJson<TasksList>(it) }
@@ -69,4 +82,31 @@ fun loadTaskDataByProjectId(context: Context, projectId: Int): TasksList? {
         return TasksList(tasksList.tasks.filter { it.project_id == projectId })
     }
     return null
+}
+
+fun getLastId(context: Context, fileName: String): Int {
+    val jsonContent = loadJsonFromAsset(context, fileName)
+    val tasksList = jsonContent?.let { parseJson<TasksList>(it) }
+    if (tasksList != null) {
+        return tasksList.tasks.last().id
+    }
+    return 0
+}
+
+fun loadTasksFromFile(context: Context): MutableList<Tasks> {
+    val jsonFile = File(context.filesDir, "tasks.json")
+    if (!jsonFile.exists()) {
+        jsonFile.createNewFile()
+        jsonFile.writeText("{ \"Tasks\": [] }")
+    }
+    val json = jsonFile.readText()
+    val taskType = object : TypeToken<MutableList<Tasks>>() {}.type
+    val tasks = Gson().fromJson<MutableList<Tasks>>(json, taskType)
+    return tasks ?: mutableListOf()
+}
+
+fun saveTasksToFile(context: Context, tasks: SnapshotStateList<TasksList>) {
+    val jsonFile = File(context.filesDir, "tasks.json")
+    val json = Gson().toJson(tasks)
+    jsonFile.writeText(json)
 }

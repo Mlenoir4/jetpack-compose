@@ -2,6 +2,7 @@
 <module version="4">
   <component name="ModuleClassLoaderOverlays">
     <paths>
+      <option value="/var/folders/ng/rpk7h23x103fs8bgqldl39bc0000gn/T/overlay1358541581647533163" />
       <option value="/var/folders/w_/3p10mhgn6475dzmmp3srt1pr0000gn/T/overlay11918974126188807832" />
       <option value="/var/folders/w_/3p10mhgn6475dzmmp3srt1pr0000gn/T/overlay12347297815503102425" />
       <option value="/var/folders/w_/3p10mhgn6475dzmmp3srt1pr0000gn/T/overlay4934283398587027838" />
@@ -11,7 +12,10 @@
       <option value="/var/folders/w_/3p10mhgn6475dzmmp3srt1pr0000gn/T/overlay15215249073388191354" />
       <option value="/var/folders/w_/3p10mhgn6475dzmmp3srt1pr0000gn/T/overlay9880228885015597380" />
       <option value="/var/folders/w_/3p10mhgn6475dzmmp3srt1pr0000gn/T/overlay5368542637038956102" />
-      <option value="/var/folders/w_/3p10mhgn6475dzmmp3srt1pr0000gn/T/overlay14507378040995950116" />
     </paths>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

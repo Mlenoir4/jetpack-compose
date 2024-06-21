@@ -27,5 +27,16 @@ fun RootNavHost(context: Context) {
                 // Handle error
             }
         }
+        composable(
+            route = "projects/{userId}",
+            arguments = listOf(navArgument("userId") { type = NavType.IntType })
+        ) {
+            val userId = it.arguments?.getInt("userId")
+            userId?.let { userId ->
+                ProjectsScreen(context, navController, userId)
+            } ?: run {
+                // Handle error
+            }
+        }
     }
 }
