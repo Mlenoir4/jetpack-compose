@@ -57,7 +57,7 @@ fun ProjectItem(project: Project, navController: NavController, userId: Int) {
                 MaterialTheme.shapes.medium
             )
             .clickable {
-                navController.navigate("todoPage/${userId}")
+                navController.navigate("todoPage/${project.id}")
             }
     ) {
         Column(modifier = Modifier.padding(16.dp)){

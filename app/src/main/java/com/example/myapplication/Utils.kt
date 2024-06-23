@@ -75,14 +75,18 @@ fun loadAllProjectDataByProjectId(context: Context, projectId: Int): ProjectsLis
     }
     return null
 }
-fun loadTaskDataByProjectId(context: Context, projectId: Int): TasksList? {
+fun loadTaskDataByProjectId(context: Context, projectId: Int): List<Tasks> {
     val jsonContent = loadJsonFromAsset(context, "tasks.json")
     val tasksList = jsonContent?.let { parseJson<TasksList>(it) }
-    if (tasksList != null) {
-        return TasksList(tasksList.tasks.filter { it.project_id == projectId })
-    }
-    return null
+    return tasksList?.tasks?.filter { it.project_id == projectId } ?: emptyList()
 }
+
+fun loadTaskById(context: Context, taskId: Int): Tasks? {
+    val jsonContent = loadJsonFromAsset(context, "tasks.json")
+    val tasksList = jsonContent?.let { parseJson<TasksList>(it) }
+    return tasksList?.tasks?.find { it.id == taskId }
+}
+
 
 fun getLastId(context: Context, fileName: String): Int {
     val jsonContent = loadJsonFromAsset(context, fileName)
@@ -105,7 +109,7 @@ fun loadTasksFromFile(context: Context): MutableList<Tasks> {
     return tasks ?: mutableListOf()
 }
 
-fun saveTasksToFile(context: Context, tasks: SnapshotStateList<TasksList>) {
+fun saveTasksToFile(context: Context, tasks: SnapshotStateList<Tasks>) {
     val jsonFile = File(context.filesDir, "tasks.json")
     val json = Gson().toJson(tasks)
     jsonFile.writeText(json)

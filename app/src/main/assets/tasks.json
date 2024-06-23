@@ -3,35 +3,35 @@
   {
     "id": 1,
     "project_id": 1,
-    "etat": false,
+    "etat": "A faire",
     "title": "Conception de l'interface utilisateur",
     "desciption": "Créer les maquettes de l'interface utilisateur pour l'application web."
   },
   {
     "id": 2,
     "project_id": 1,
-    "etat": true,
+    "etat": "A faire",
     "title": "Développement du backend",
     "desciption": "Mettre en place l'architecture backend et développer les APIs nécessaires."
   },
   {
     "id": 3,
     "project_id": 2,
-    "etat": false,
+    "etat": "En cours",
     "title": "Migration des données",
     "desciption": "Transférer les données de l'ancien système vers le nouveau."
   },
   {
     "id": 4,
     "project_id": 3,
-    "etat": true,
+    "etat": "En prod",
     "title": "Rédaction du contenu marketing",
     "desciption": "Créer et approuver le contenu pour la campagne marketing."
   },
   {
     "id": 5,
     "project_id": 5,
-    "etat": false,
+    "etat": "Terminer",
     "title": "Développement de l'application mobile",
     "desciption": "Programmer les fonctionnalités principales de l'application mobile."
   }
